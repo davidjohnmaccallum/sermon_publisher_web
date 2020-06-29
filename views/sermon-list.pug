@@ -1,0 +1,34 @@
+extends layout
+
+block content
+  //- div.d-flex.align-items-center.flex-column(style="background-color: #F8FAF5")
+  //-   img(src="/images/top.jpeg", width="100%", style="max-width: 300px")
+  //-   p
+  //-     | Corner Fir Rd and Eagle Rd, Palm Springs. 
+  //-     a(href="https://goo.gl/maps/N7SZ9zkagMsGfjxv6", target="_blank") Get directions.
+  
+  nav.navbar.navbar-light.bg-light
+    ul.navbar-nav.mr-auto
+      li.nav-item
+        a.nav-link(href=`/`)
+          img(src="/images/back.svg")
+    .mx-auto.order-0
+      a.navbar-brand.mx-auto(href='/')=user.ministryName
+    ul.navbar-nav.ml-auto
+
+  .container.mt-3
+    h1 Sermons
+    each sermon in sermons
+      .card.mb-3
+        .card-body
+          h5.card-title=sermon.title
+          h6.card-subtitle.mb-2.text-muted=sermon.preachedOn
+          if sermon.bibleReferences
+            p.card-text
+              p.bibleReferences
+                span Bible passages: &nbsp
+                span
+                  a(href=sermon.bibleLink)=sermon.bibleReferences
+          if sermon.description
+            p.card-text=sermon.description
+          a.btn.btn-primary.stretched-link(href=`/${user.id}/sermon/${sermon.id}`) Open

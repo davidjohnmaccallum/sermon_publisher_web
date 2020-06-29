@@ -1,0 +1,14 @@
+extends layout
+
+block content
+  nav.navbar.navbar-light.bg-light
+    ul.navbar-nav.mr-auto
+      li.nav-item
+        a.nav-link(href=homeHref)
+          img(src="/images/back.svg")
+    .mx-auto.order-0
+      a.navbar-brand.mx-auto(href='/')=title
+    ul.navbar-nav.ml-auto
+  .container
+    h1=message
+    a.btn.btn-primary(href=homeHref) Home

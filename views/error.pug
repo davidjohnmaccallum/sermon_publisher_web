@@ -1,0 +1,16 @@
+extends layout
+
+block content
+  nav.navbar.navbar-light.bg-light
+    ul.navbar-nav.mr-auto
+      li.nav-item
+        a.nav-link(href="/")
+          img(src="/images/back.svg")
+    .mx-auto.order-0
+      a.navbar-brand.mx-auto(href='/') Error
+    ul.navbar-nav.ml-auto
+  .container
+    p.mt-3= message
+    if err
+      pre #{err.stack}
+    a.btn.btn-primary(href=`/`) Home
