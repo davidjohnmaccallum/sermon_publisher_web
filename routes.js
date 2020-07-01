@@ -112,15 +112,10 @@ router.get('/:userId/sermon/:sermonId', async (req, res, next) => {
     await sermonRef.update({ listens: listens + 1 })
 
     // Get audio file
-    const isV3User = !!user.bucketName
-    const v2StorageBucket = getenv('STORAGE_BUCKET')
-    const v3StorageBucket = user.bucketName
-    const v2FilePath = `users/${user.id}/sermons/${sermon.id}`
-    const v3FilePath = `sermons/${sermon.id}`
     const file = admin
       .storage()
-      .bucket(isV3User ? v3StorageBucket : v2StorageBucket)
-      .file(isV3User ? v3FilePath : v2FilePath)
+      .bucket(user.bucketName)
+      .file(`sermons/${sermon.id}`)
     const exists = await file.exists()
     if (!exists[0]) {
       console.error('Sermon audio file not found', file.name)
