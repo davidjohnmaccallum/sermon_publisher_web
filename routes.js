@@ -19,7 +19,7 @@ const docToSermon = (doc) => {
     id: doc.id,
     ...data,
     preachedOn: data.preachedOn
-      ? dateFormat(data.preachedOn.toDate(), "ddd d mmm 'at' h tt")
+      ? dateFormat(data.preachedOn.toDate(), "ddd d mmm yyyy 'at' h tt")
       : undefined,
     bibleLink: data.bibleReferences
       ? `https://www.biblegateway.com/passage/?search=${encodeURI(
@@ -60,7 +60,10 @@ router.get('/:userId/', async (req, res, next) => {
     }
     const user = { id: userDoc.id, ...userDoc.data() }
 
-    const sermonsQuery = await userRef.collection('sermons').get()
+    const sermonsQuery = await userRef
+      .collection('sermons')
+      .orderBy('preachedOn', 'desc')
+      .get()
     const sermons = sermonsQuery.docs.map(docToSermon)
 
     res.render('sermon-list', {
