@@ -15,7 +15,7 @@ block content
     if user.photoUrl
       img.mb-2(src=user.photoUrl)
     p=sermon.description
-    p
+    if sermon.bibleLink
       p.bibleReferences
         span Bible passages: &nbsp
         span
