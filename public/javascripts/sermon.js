@@ -16,7 +16,7 @@ c1 &&
     window.location.href =
       'mailto:' +
       c1
-        .split()
+        .split(',')
         .map((it) => it.charCodeAt(0) >> 1)
         .map((it) => String.fromCharCode(it))
   })
@@ -31,7 +31,7 @@ c2 &&
     window.location.href =
       'tel:' +
       c2
-        .split()
+        .split(',')
         .map((it) => it.charCodeAt(0) >> 1)
         .map((it) => String.fromCharCode(it))
   })
