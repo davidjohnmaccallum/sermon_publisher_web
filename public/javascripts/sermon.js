@@ -3,6 +3,38 @@ const playButton = document.getElementById('playButton')
 const pauseButton = document.getElementById('pauseButton')
 const bibleLink = document.getElementById('bibleLink')
 const shareButton = document.getElementById('shareButton')
+const emailContactButton = document.getElementById('emailContactButton')
+const phoneContactButton = document.getElementById('phoneContactButton')
+
+c1 &&
+  emailContactButton &&
+  emailContactButton.addEventListener('click', function () {
+    gtag('event', 'email_contact_button_click', {
+      event_category: '#{user.ministryName}',
+      event_label: '#{sermon.title}',
+    })
+    window.location.href =
+      'mailto:' +
+      c1
+        .split()
+        .map((it) => it.charCodeAt(0) >> 1)
+        .map((it) => String.fromCharCode(it))
+  })
+
+c2 &&
+  phoneContactButton &&
+  phoneContactButton.addEventListener('click', function () {
+    gtag('event', 'phone_contact_button_click', {
+      event_category: '#{user.ministryName}',
+      event_label: '#{sermon.title}',
+    })
+    window.location.href =
+      'tel:' +
+      c2
+        .split()
+        .map((it) => it.charCodeAt(0) >> 1)
+        .map((it) => String.fromCharCode(it))
+  })
 
 // Show share button if sharing API available
 if (navigator.share) shareButton.style.display = 'initial'

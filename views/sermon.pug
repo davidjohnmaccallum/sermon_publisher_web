@@ -25,11 +25,17 @@ block content
         source(src=sermon.url,type=contentType)
     button#playButton.btn.btn-primary.mr-3(onclick="audioPlayer.play();") Play
     button#pauseButton.btn.btn-primary.mr-3(onclick="audioPlayer.pause();", style="display: none;") Pause
-    a#downloadLink.btn.btn-primary.mr-3(href=`/${user.id}/sermon/${sermon.id}/download`) Download
-    button#shareButton.btn.btn-primary(style="display: none") Share
+    a#downloadLink.btn.btn-block.btn-primary.mt-3(href=`/${user.id}/sermon/${sermon.id}/download`) Download
+    button#shareButton.btn.btn-block.btn-primary.mt-3(style="display: none") Share
+    if user.emailContactEnabled
+      button#emailContactButton.btn.btn-block.btn-primary.mt-3 Email Pastor
+    if user.phoneContactEnabled
+      button#phoneContactButton.btn.btn-block.btn-primary.my-3 Call Pastor
 
     script.
       const sermonTitle = '#{sermon.title}'
       const sermonDescription = '#{sermon.description}'
       const ministryName = '#{user.ministryName}'
+      const c1 = '#{user.email && user.email.split('').map(it=>it.charCodeAt(0)<<1)}'
+      const c2 = '#{user.phoneNumber && user.phoneNumber.split('').map(it=>it.charCodeAt(0)<<1)}'
     script(src="/javascripts/sermon.js")
