@@ -5,13 +5,13 @@ const bibleLink = document.getElementById('bibleLink')
 const shareButton = document.getElementById('shareButton')
 
 // Show share button if sharing API available
-// if (navigator.share) shareButton.style.visibility = 'visible'
+if (navigator.share) shareButton.style.display = 'initial'
 
 // Share button
 shareButton.addEventListener('click', function () {
   navigator.share({
-    title: sermonTitle,
-    text: sermonDescription,
+    // title: sermonTitle,
+    // text: sermonDescription,
     url: window.url,
   })
 })
