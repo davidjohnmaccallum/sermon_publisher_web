@@ -11,7 +11,7 @@ if (navigator.share) shareButton.style.display = 'initial'
 shareButton.addEventListener('click', function () {
   const args = {
     title: sermonTitle,
-    text: [sermonTitle, 'preached by', ministryName, window.location.href]
+    text: [sermonTitle, 'preached by', ministryName]
       .filter((it) => it)
       .join(' '),
     url: window.location.href,
