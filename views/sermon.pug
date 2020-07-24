@@ -12,6 +12,8 @@ block content
   .container.mt-3
     h3=sermon.title
     h6.mb-2.text-muted=sermon.preachedOn
+    if user.photoUrl
+      img.mb-2(src=user.photoUrl)
     p=sermon.description
     p
       p.bibleReferences
