@@ -24,7 +24,7 @@ block content
     button#playButton.btn.btn-primary.mr-3(onclick="audioPlayer.play();") Play
     button#pauseButton.btn.btn-primary.mr-3(onclick="audioPlayer.pause();", style="display: none;") Pause
     a#downloadLink.btn.btn-primary.mr-3(href=`/${user.id}/sermon/${sermon.id}/download`) Download
-    button#shareButton.btn.btn-primary(style="display: none") Share
+    button#shareButton.btn.btn-primary Share
 
     script.
       const sermonTitle = '#{sermon.title}'

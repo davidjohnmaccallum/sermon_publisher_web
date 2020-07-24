@@ -5,7 +5,7 @@ const bibleLink = document.getElementById('bibleLink')
 const shareButton = document.getElementById('shareButton')
 
 // Show share button if sharing API available
-if (navigator.share) shareButton.style.visibility = 'visible'
+// if (navigator.share) shareButton.style.visibility = 'visible'
 
 // Share button
 shareButton.addEventListener('click', function () {
