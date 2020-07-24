@@ -9,15 +9,13 @@ if (navigator.share) shareButton.style.display = 'initial'
 
 // Share button
 shareButton.addEventListener('click', function () {
-  const args = {
-    title: sermonTitle,
-    text: [sermonTitle, 'preached by', ministryName]
-      .filter((it) => it)
-      .join(' '),
+  gtag('event', 'share_button_click', {
+    event_category: '#{user.ministryName}',
+    event_label: '#{sermon.title}',
+  })
+  navigator.share({
     url: window.location.href,
-  }
-  console.log('Sharing', args)
-  navigator.share(args)
+  })
 })
 
 // When paused show play button.
