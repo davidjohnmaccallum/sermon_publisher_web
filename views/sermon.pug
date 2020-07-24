@@ -23,52 +23,10 @@ block content
         source(src=sermon.url,type=contentType)
     button#playButton.btn.btn-primary.mr-3(onclick="audioPlayer.play();") Play
     button#pauseButton.btn.btn-primary.mr-3(onclick="audioPlayer.pause();", style="display: none;") Pause
-    a.btn.btn-primary(href=`/${user.id}/sermon/${sermon.id}/download`) Download
+    a#downloadLink.btn.btn-primary.mr-3(href=`/${user.id}/sermon/${sermon.id}/download`) Download
+    button#shareButton.btn.btn-primary(style="display: none") Share
 
     script.
-      var audioPlayer = document.getElementById('audioPlayer');
-      var playButton = document.getElementById('playButton');
-      var pauseButton = document.getElementById('pauseButton');
-      var bibleLink = document.getElementById('bibleLink');
-      // When paused show play button.
-      audioPlayer.addEventListener('pause', function() {
-        playButton.style.display = 'inline-block';
-        pauseButton.style.display = 'none';
-      })
-      // When playing show pause button.
-      audioPlayer.addEventListener('play', function() {
-        playButton.style.display = 'none';
-        pauseButton.style.display = 'inline-block';
-      })
-      // Analytics. Log bible link click.
-      var bibleLinkClicked = false;
-      bibleLink.addEventListener('click', function() {
-        if (bibleLinkClicked) return;
-        gtag('event', 'bible_link_click', {
-          'event_category': '#{user.ministryName}',
-          'event_label': '#{sermon.title}'
-        });
-        bibleLinkClicked = true;
-      })
-      // Analytics. Log inital play event.
-      var startLogged = false;
-      audioPlayer.addEventListener('play', function() {
-        if (startLogged) return;
-        gtag('event', 'listen_start', {
-          'event_category': '#{user.ministryName}',
-          'event_label': '#{sermon.title}'
-        });
-        startLogged = true;
-      })
-      // Analytics. Log listened to end.
-      var completeLogged = false;
-      audioPlayer.addEventListener('timeupdate', function (event) {        
-        if (completeLogged) return;
-        // If listener gets to the last 30 seconds treat as complete
-        if (event.target.duration - event.target.currentTime > 30) return;
-        gtag('event', 'listen_complete', {
-          'event_category': '#{user.ministryName}',
-          'event_label': '#{sermon.title}'
-        });
-        completeLogged = true;
-      })
+      const sermonTitle = '#{sermon.title}'
+      const sermonDescription = '#{sermon.description}'
+    script(src="/javascripts/sermon.js")
