@@ -20,6 +20,8 @@ block content
         span Bible passages: &nbsp
         span
           a#bibleLink(href=sermon.bibleLink target="_blank")=sermon.bibleReferences
+    if sermon.listens > 1
+      p.listens=`Listened to by ${sermon.listens} people`
     p.audio
       audio#audioPlayer(controls=true)
         source(src=sermon.url,type=contentType)
