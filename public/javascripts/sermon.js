@@ -17,8 +17,9 @@ c1 &&
       'mailto:' +
       c1
         .split(',')
-        .map((it) => it.charCodeAt(0) >> 1)
+        .map((it) => it >> 1)
         .map((it) => String.fromCharCode(it))
+        .join('')
   })
 
 c2 &&
@@ -32,8 +33,9 @@ c2 &&
       'tel:' +
       c2
         .split(',')
-        .map((it) => it.charCodeAt(0) >> 1)
+        .map((it) => it >> 1)
         .map((it) => String.fromCharCode(it))
+        .join('')
   })
 
 // Show share button if sharing API available
