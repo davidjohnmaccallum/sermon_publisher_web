@@ -13,13 +13,11 @@ c1 &&
       event_category: '#{user.ministryName}',
       event_label: '#{sermon.title}',
     })
-    window.location.href =
-      'mailto:' +
-      c1
-        .split(',')
-        .map((it) => it >> 1)
-        .map((it) => String.fromCharCode(it))
-        .join('')
+    window.location.href = c1
+      .split(',')
+      .map((it) => it >> 1)
+      .map((it) => String.fromCharCode(it))
+      .join('')
   })
 
 c2 &&
@@ -29,13 +27,11 @@ c2 &&
       event_category: '#{user.ministryName}',
       event_label: '#{sermon.title}',
     })
-    window.location.href =
-      'tel:' +
-      c2
-        .split(',')
-        .map((it) => it >> 1)
-        .map((it) => String.fromCharCode(it))
-        .join('')
+    window.location.href = c2
+      .split(',')
+      .map((it) => it >> 1)
+      .map((it) => String.fromCharCode(it))
+      .join('')
   })
 
 // Show share button if sharing API available
@@ -66,14 +62,15 @@ audioPlayer.addEventListener('play', function () {
 
 // Analytics. Log bible link click.
 const bibleLinkClicked = false
-bibleLink.addEventListener('click', function () {
-  if (bibleLinkClicked) return
-  gtag('event', 'bible_link_click', {
-    event_category: '#{user.ministryName}',
-    event_label: '#{sermon.title}',
+bibleLink &&
+  bibleLink.addEventListener('click', function () {
+    if (bibleLinkClicked) return
+    gtag('event', 'bible_link_click', {
+      event_category: '#{user.ministryName}',
+      event_label: '#{sermon.title}',
+    })
+    bibleLinkClicked = true
   })
-  bibleLinkClicked = true
-})
 
 // Analytics. Log inital play event.
 const startLogged = false

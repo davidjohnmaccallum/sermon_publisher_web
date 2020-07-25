@@ -38,6 +38,6 @@ block content
       const sermonTitle = '#{sermon.title}'
       const sermonDescription = '#{sermon.description}'
       const ministryName = '#{user.ministryName}'
-      const c1 = '#{user.email && user.email.split('').map(it=>it.charCodeAt(0)<<1)}'
-      const c2 = '#{user.phoneNumber && user.phoneNumber.split('').map(it=>it.charCodeAt(0)<<1)}'
+      const c1 = '#{user.email && `mailto:${user.email}`.split('').map(it=>it.charCodeAt(0)<<1)}'
+      const c2 = '#{user.phoneNumber && `tel:${user.phoneNumber}`.split('').map(it=>it.charCodeAt(0)<<1)}'
     script(src="/javascripts/sermon.js")
