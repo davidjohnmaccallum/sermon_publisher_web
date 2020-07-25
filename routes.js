@@ -33,13 +33,15 @@ const davidsUserId = 'TVkkJCFxh3dxoGhmZGcgYYtd1Ou2'
 router.get('/', async (req, res, next) => {
   try {
     // Get users
-    const usersQuery = await admin.firestore().collection('users').get()
-    const users = usersQuery.docs
-      .map((doc) => ({
-        id: doc.id,
-        ...doc.data(),
-      }))
-      .filter((user) => user.id !== davidsUserId) // Don't show my messy test data
+    const usersQuery = await admin
+      .firestore()
+      .collection('users')
+      .orderBy('ministryName')
+      .get()
+    const users = usersQuery.docs.map((doc) => ({
+      id: doc.id,
+      ...doc.data(),
+    }))
     res.render('user-list', { title: 'Ministries', users })
   } catch (err) {
     next(err)
