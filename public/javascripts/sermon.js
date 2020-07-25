@@ -61,7 +61,7 @@ audioPlayer.addEventListener('play', function () {
 })
 
 // Analytics. Log bible link click.
-const bibleLinkClicked = false
+let bibleLinkClicked = false
 bibleLink &&
   bibleLink.addEventListener('click', function () {
     if (bibleLinkClicked) return
@@ -73,7 +73,7 @@ bibleLink &&
   })
 
 // Analytics. Log inital play event.
-const startLogged = false
+let startLogged = false
 audioPlayer.addEventListener('play', function () {
   if (startLogged) return
   gtag('event', 'listen_start', {
@@ -84,7 +84,7 @@ audioPlayer.addEventListener('play', function () {
 })
 
 // Analytics. Log listened to end.
-const completeLogged = false
+let completeLogged = false
 audioPlayer.addEventListener('timeupdate', function (event) {
   if (completeLogged) return
   // If listener gets to the last 30 seconds treat as complete
