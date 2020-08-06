@@ -34,10 +34,11 @@ block content
     if user.phoneContactEnabled
       button#phoneContactButton.btn.btn-block.btn-primary.mb-3 Call Pastor
 
+    script(src="/javascripts/sermon.js")
     script.
       const sermonTitle = `#{sermon.title}`
       const sermonDescription = `#{sermon.description}`
       const ministryName = `#{user.ministryName}`
       const c1 = '#{user.email && `mailto:${user.email}`.split('').map(it=>it.charCodeAt(0)<<1)}'
       const c2 = '#{user.phoneNumber && `tel:${user.phoneNumber}`.split('').map(it=>it.charCodeAt(0)<<1)}'
-    script(src="/javascripts/sermon.js")
+      SermonPage(ministryName, sermonTitle, c1, c2)
