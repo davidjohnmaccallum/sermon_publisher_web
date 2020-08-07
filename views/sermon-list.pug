@@ -18,7 +18,7 @@ block content
 
   .container.mt-3
     h1 Sermons
-    each sermon in sermons
+    each sermon, i in sermons
       .card.mb-3
         .card-body
           h5.card-title=sermon.title
@@ -31,4 +31,4 @@ block content
                   a(href=sermon.bibleLink)=sermon.bibleReferences
           if sermon.description
             p.card-text=sermon.description
-          a.btn.btn-primary.stretched-link(href=`/${user.id}/sermon/${sermon.id}`) Open
+          a.btn.btn-primary.stretched-link(href=`/${user.id}/sermon/${sermon.id}` id=`sermon-${i}`) Open

@@ -3,8 +3,8 @@ extends layout
 block content
   .container.mt-3
     h1 Ministries
-    each user in users
+    each user, i in users
       .card.mb-3
         .card-body
           h5.card-title=user.ministryName
-          a.btn.btn-primary.stretched-link(href=`/${user.id}`) Open
+          a.btn.btn-primary.stretched-link(href=`/${user.id}`, id=`ministry-${i}`) Open
