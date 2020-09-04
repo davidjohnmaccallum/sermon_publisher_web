@@ -1,5 +1,5 @@
 const SermonPage = function (ministryName, sermonTitle, c1, c2) {
-  const verbose = true
+  const verbose = false
 
   const audioPlayer = document.getElementById('audioPlayer')
   const playButton = document.getElementById('playButton')
