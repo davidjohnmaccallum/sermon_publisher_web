@@ -1,4 +1,6 @@
 const SermonPage = function (ministryName, sermonTitle, c1, c2) {
+  const verbose = true
+
   const audioPlayer = document.getElementById('audioPlayer')
   const playButton = document.getElementById('playButton')
   const pauseButton = document.getElementById('pauseButton')
@@ -84,16 +86,40 @@ const SermonPage = function (ministryName, sermonTitle, c1, c2) {
     startLogged = true
   })
 
-  // Analytics. Log listened to end.
-  let completeLogged = false
-  audioPlayer.addEventListener('timeupdate', function (event) {
-    if (completeLogged) return
-    // If listener gets to the last 30 seconds treat as complete
-    if (event.target.duration - event.target.currentTime > 30) return
-    gtag('event', 'listen_complete', {
-      event_category: ministryName,
-      event_label: sermonTitle,
-    })
-    completeLogged = true
-  })
+  // Analytics: Log when people stop listening to the sermon.  
+  const getPercentComplete = (event) => {
+    /*
+     * Here is my thinking:
+     * Subtract 30 seconds from the sermon duration. This is because there is often
+     * some dead time at the end of a talk. So the formula for percentComplete = 
+     * currentTime/(duration-30). This introduces an edge case where duration < 30.
+     */
+    const realDuration = event.target.duration-30
+    if (realDuration <= 0) return 1
+    return event.target.currentTime/realDuration
+  }
+  
+  const logPercentComplete = (event, percent, tag, listenerKey) => {
+    if (getPercentComplete(event) >= percent) {
+      verbose && console.info("Analytics:", tag)
+      gtag('event', tag, {
+        event_category: ministryName,
+        event_label: sermonTitle,
+      })
+      audioPlayer.removeEventListener('timeupdate', percentCompleteListeners[listenerKey])
+    }
+  }
+
+  const percentCompleteListeners = {
+    "100": (event) => logPercentComplete(event, 1, 'listen_complete', "100"),
+    "75": (event) => logPercentComplete(event, 0.75, 'listened_to_three_quarters', "75"),
+    "50": (event) => logPercentComplete(event, 0.5, 'listened_to_half', "50"),
+    "25": (event) => logPercentComplete(event, 0.25, 'listened_to_one_quarter', "25"),
+  }
+
+  audioPlayer.addEventListener('timeupdate', percentCompleteListeners["100"])
+  audioPlayer.addEventListener('timeupdate', percentCompleteListeners["75"])
+  audioPlayer.addEventListener('timeupdate', percentCompleteListeners["50"])
+  audioPlayer.addEventListener('timeupdate', percentCompleteListeners["25"])
+
 }
