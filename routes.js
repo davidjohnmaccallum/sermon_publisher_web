@@ -63,10 +63,12 @@ router.get('/:userId/', async (req, res, next) => {
     const user = { id: userDoc.id, ...userDoc.data() }
 
     const sermonsQuery = await userRef
-      .collection('sermons')
+      .collection('sermons')      
       .orderBy('preachedOn', 'desc')
       .get()
-    const sermons = sermonsQuery.docs.map(docToSermon)
+    const sermons = sermonsQuery.docs
+      .filter(doc => doc.data().url) // Only published sermons
+      .map(docToSermon)
 
     res.render('sermon-list', {
       title: `${user.ministryName}: Sermon List`,
